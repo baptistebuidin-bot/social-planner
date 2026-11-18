@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Post {
+  id          String    @id @default(cuid())
+  title       String
+  content     String    @default("")
+  platform    String
+  status      String    @default("IDEA")
+  plannedDate DateTime
+  publishedAt DateTime?
+  mediaNote   String    @default("")
+  metaPostId  String?
+  impressions Int       @default(0)
+  reach       Int       @default(0)
+  likes       Int       @default(0)
+  comments    Int       @default(0)
+  shares      Int       @default(0)
+  clicks      Int       @default(0)
+  metricsSyncedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([plannedDate])
+  @@index([status])
+}
